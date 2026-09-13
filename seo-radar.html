@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semrush SEO Radar | OmniGrowth OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased pb-12">
+
+  <!-- Universal Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="h-9 w-9 rounded-xl bg-brand-600 flex items-center justify-center font-black text-white text-lg shadow-lg">Ω</a>
+        <div>
+          <span class="font-extrabold text-sm text-white">OmniGrowth OS</span>
+          <span class="text-[10px] ml-2 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">Semrush SEO Radar</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-2 text-xs font-medium">
+        <a href="/" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Dashboard</a>
+        <a href="/funnels.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Funnels</a>
+        <a href="/crm.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Edge CRM</a>
+        <a href="/copy-studio.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Copy Studio</a>
+        <a href="/seo-radar.html" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white">SEO Radar</a>
+      </nav>
+      <div class="flex items-center gap-2 text-xs">
+        <button onclick="exportArticleMarkdown()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 font-semibold">
+          📥 Export Article (.md)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
+
+    <!-- SEO Scanner Control Card -->
+    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
+          <span>🔍 Programmatic Keyword & Content Cluster Scanner</span>
+        </h2>
+        <p class="text-xs text-slate-400">सर्च इंजन रैंकिंग के लिए हाई-इंटेंट कीवर्ड्स और कंटेंट स्ट्रक्चर जनरेट करें।</p>
+      </div>
+      <form onsubmit="event.preventDefault(); scanSeoOpportunity();" class="flex flex-wrap items-center gap-3 text-xs flex-1 max-w-xl">
+        <input type="text" id="targetKeyword" value="B2B client acquisition automation" placeholder="Enter Core Industry Keyword" required class="bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white flex-1 min-w-[200px] focus:outline-none focus:border-brand-500">
+        <button type="submit" id="btnScan" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 font-bold text-white rounded-xl transition shadow-lg shadow-emerald-500/20">
+          ⚡ Scan Keyword Clusters
+        </button>
+      </form>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Keyword Clusters Table (Semrush Matrix) -->
+      <div class="lg:col-span-6 p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">Semantic Opportunities (SERP Intent)</span>
+          <span class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded">High Organic ROI</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400">
+                <th class="pb-2">Keyword Cluster</th>
+                <th class="pb-2">Search Vol</th>
+                <th class="pb-2">KD %</th>
+                <th class="pb-2">Intent</th>
+                <th class="pb-2 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="seoTable" class="divide-y divide-slate-800/60 font-mono text-[11px]">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pillar Article Architect View -->
+      <div class="lg:col-span-6 p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Programmatic Pillar Article (H1-H3 Blueprint)</span>
+          <button onclick="copyArticleToClipboard()" class="text-[11px] text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800">Copy Outline</button>
+        </div>
+        <div id="articleH1" class="text-sm font-bold text-white"></div>
+        <textarea id="articleContent" rows="13" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    function scanSeoOpportunity() {
+      const kw = document.getElementById('targetKeyword').value;
+      const btn = document.getElementById('btnScan');
+      btn.disabled = true;
+      btn.innerText = '⚙️ Scanning SERP...';
+
+      setTimeout(() => {
+        const clusters = [
+          { keyword: `best ${kw} tools 2026`, vol: '6,400', kd: '32%', intent: 'Commercial' },
+          { keyword: `how to automate ${kw}`, vol: '4,800', kd: '24%', intent: 'Informational' },
+          { keyword: `${kw} architecture review`, vol: '2,100', kd: '18%', intent: 'Commercial' },
+          { keyword: `enterprise ${kw} case study`, vol: '1,300', kd: '15%', intent: 'Transactional' },
+          { keyword: `${kw} vs traditional agency`, vol: '3,900', kd: '29%', intent: 'Comparative' }
+        ];
+
+        const tbody = document.getElementById('seoTable');
+        tbody.innerHTML = '';
+        clusters.forEach(c => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="py-2.5 font-semibold text-white font-sans">${c.keyword}</td>
+            <td class="py-2.5 text-slate-300">${c.vol}</td>
+            <td class="py-2.5 text-emerald-400 font-bold">${c.kd}</td>
+            <td class="py-2.5 text-indigo-400">${c.intent}</td>
+            <td class="py-2.5 text-right">
+              <button onclick="injectKeyword('${c.keyword}')" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded">Target</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        document.getElementById('articleH1').innerText = `Definitive Guide: Scaling with ${kw} in 2026`;
+        document.getElementById('articleContent').value = `# The Complete 2026 Guide to ${kw}\n\n## Introduction: The Inefficiency of Legacy Playbooks\nIn the current market landscape, manual acquisition pipelines represent an operational bottleneck. Modern teams are transitioning to autonomous edge architectures to eliminate lead friction.\n\n## Section 1: Breaking Down the Core Bottlenecks\n- Why outbound response rates fell 40% across saturated industries\n- The shift toward instant edge qualification\n- Cost per acquisition (CPA) comparison: Legacy vs Autonomous\n\n## Section 2: Step-by-Step Architecture Deployment\n1. Direct ICP alignment without generic messaging\n2. Deploying edge-hosted high-conversion funnels\n3. Automated lead scoring (MQL to SQL transition)\n\n## Section 3: Industry Case Studies & Data Metrics\nAnalyzing real-world pipeline performance across 10,000+ interactions.\n\n## Conclusion & Immediate Execution Roadmap\nPractical checklist to implement this architecture within 7 days.`;
+
+        btn.disabled = false;
+        btn.innerText = '⚡ Scan Keyword Clusters';
+      }, 700);
+    }
+
+    function injectKeyword(keyword) {
+      const area = document.getElementById('articleContent');
+      area.value = area.value + `\n\n### Key Focus Strategy: ${keyword}\nTargeting this cluster directly captures high-intent traffic with minimal organic resistance.`;
+      alert(`Cluster "${keyword}" injected into article outline!`);
+    }
+
+    function copyArticleToClipboard() {
+      const text = document.getElementById('articleContent').value;
+      navigator.clipboard.writeText(text);
+      alert('Article outline copied to clipboard!');
+    }
+
+    function exportArticleMarkdown() {
+      const h1 = document.getElementById('articleH1').innerText;
+      const content = document.getElementById('articleContent').value;
+      const blob = new Blob([content], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pillar-seo-article.md';
+      a.click();
+    }
+
+    window.onload = scanSeoOpportunity;
+  </script>
+</body>
+</html>
