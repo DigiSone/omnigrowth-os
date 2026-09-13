@@ -1,0 +1,10 @@
+name = "omnigrowth-os"
+compatibility_date = "2026-09-01"
+
+[d1_databases]
+binding = "DB"
+database_name = "omnigrowth-db"
+database_id = ""
+
+[ai]
+binding = "AI"

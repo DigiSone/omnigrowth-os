@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniGrowth OS | Autonomous AI Marketing Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] } } }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-xl text-white shadow-lg">Ω</div>
+        <div>
+          <span class="font-extrabold text-lg text-white">OmniGrowth OS</span>
+          <span class="text-xs ml-2 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">2026 Autonomous</span>
+        </div>
+      </div>
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Edge: Cloudflare Pages
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-4 bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
+        <h2 class="text-base font-bold text-white mb-2">🚀 Minimal Business Input</h2>
+        <p class="text-xs text-slate-400 mb-6">सिर्फ सामान्य जानकारी दर्ज करें, बाकी रणनीति एजेंट्स खुद बनाएंगे।</p>
+        <form id="growthForm" onsubmit="event.preventDefault(); triggerAgents();" class="space-y-4 text-xs">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Business Name</label>
+            <input type="text" id="bizName" required placeholder="जैसे: Digisone Digital" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Target Audience</label>
+            <input type="text" id="bizAudience" required placeholder="जैसे: SaaS Founders, Local Boutiques" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Primary Growth Goal</label>
+            <input type="text" id="bizGoal" required placeholder="जैसे: High-Ticket Client Acquisition" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+          <button type="submit" id="btnRun" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 font-bold text-white rounded-xl shadow-lg transition">⚡ Run Autonomous System</button>
+        </form>
+      </div>
+
+      <div class="lg:col-span-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4">Autonomous Marketing Deliverables</h3>
+        <div id="outputArea" class="space-y-4">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-xs font-bold text-sky-400">𝕏 Viral Thread Hook</span>
+            <p id="outTweet" class="text-sm text-slate-300 mt-2 font-mono">जानकारी दर्ज करके 'Run' पर क्लिक करें...</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-xs font-bold text-blue-400">LinkedIn Authority Post (PAS Framework)</span>
+            <p id="outLinkedin" class="text-sm text-slate-300 mt-2 whitespace-pre-line"></p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-xs font-bold text-purple-400">Klaviyo Nurture Email Sequence</span>
+            <p id="outEmail" class="text-sm text-slate-300 mt-2 whitespace-pre-line"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function triggerAgents() {
+      const name = document.getElementById('bizName').value;
+      const audience = document.getElementById('bizAudience').value;
+      const goal = document.getElementById('bizGoal').value;
+
+      document.getElementById('btnRun').innerText = '⚙️ एजेंट्स काम कर रहे हैं...';
+      setTimeout(() => {
+        document.getElementById('outTweet').innerText = `90% of ${audience} lose revenue not from lack of effort, but due to zero marketing automation.
+
+Here is how ${name} fixes this permanently: 🧵👇`;
+        document.getElementById('outLinkedin').innerText = `Scaling in the ${audience} domain shouldn't require working 80 hours a week.
+
+With ${name}, our primary goal is ${goal}.
+
+Here is the systematic architecture we deploy...`;
+        document.getElementById('outEmail').innerText = `Subject: The single missing piece in your ${goal} roadmap
+
+Hey there,
+
+Most ${audience} focus on generic marketing.
+At ${name}, we take a completely autonomous approach.
+
+Best,
+Team ${name}`;
+        document.getElementById('btnRun').innerText = '⚡ Run Autonomous System';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
