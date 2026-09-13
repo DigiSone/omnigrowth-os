@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omni-Scheduler & Attribution | OmniGrowth OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased pb-12">
+
+  <!-- Universal Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="h-9 w-9 rounded-xl bg-brand-600 flex items-center justify-center font-black text-white text-lg shadow-lg">Ω</a>
+        <div>
+          <span class="font-extrabold text-sm text-white">OmniGrowth OS</span>
+          <span class="text-[10px] ml-2 px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">Buffer & Attribution</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-2 text-xs font-medium">
+        <a href="/" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Dashboard</a>
+        <a href="/funnels.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Funnels</a>
+        <a href="/crm.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Edge CRM</a>
+        <a href="/copy-studio.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Copy Studio</a>
+        <a href="/seo-radar.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">SEO Radar</a>
+        <a href="/scheduler.html" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white">Scheduler & Metrics</a>
+      </nav>
+      <div class="flex items-center gap-2 text-xs">
+        <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Edge Cron: Active
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
+
+    <!-- Triple Whale Attribution Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Blended Ad Spend ROAS</span>
+        <div class="text-2xl font-black text-indigo-400 mt-1">5.14x</div>
+        <div class="text-[10px] text-emerald-400 mt-0.5">↑ +18% Edge Optimization</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Average CPA (Cost/Lead)</span>
+        <div class="text-2xl font-black text-emerald-400 mt-1">$3.82</div>
+        <div class="text-[10px] text-emerald-400 mt-0.5">Industry Benchmark: $28.00</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Edge Funnel Conversion</span>
+        <div class="text-2xl font-black text-white mt-1">14.2%</div>
+        <div class="text-[10px] text-indigo-400 mt-0.5">Multi-Variant Winner</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Automated Content Queue</span>
+        <div id="statQueue" class="text-2xl font-black text-purple-400 mt-1">6 Posts</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">Buffer Sync Ready</div>
+      </div>
+    </div>
+
+    <!-- Buffer Scheduler Module -->
+    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
+            <span>📅 Buffer / Hootsuite Multi-Channel Queue</span>
+          </h2>
+          <p class="text-xs text-slate-400">ऑटोमेटेड सोशल मीडिया पब्लिशिंग कैलेंडर (LinkedIn, X, Meta)।</p>
+        </div>
+        <button onclick="addNewQueueItem()" class="px-3.5 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold">
+          + Schedule New Post
+        </button>
+      </div>
+
+      <div id="queueList" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <div class="flex justify-between items-center text-[10px] font-mono">
+            <span class="text-sky-400 font-bold">𝕏 (Twitter) • Tomorrow, 09:00 AM</span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Queued</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">"93% of founders fail to scale customer acquisition because of fragmented tools. Here's our 2026 Edge blueprint: 🧵👇"</p>
+          <div class="text-[10px] text-slate-500 border-t border-slate-900 pt-2 flex justify-between">
+            <span>Target: Founders</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-rose-400 hover:underline">Remove</button>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <div class="flex justify-between items-center text-[10px] font-mono">
+            <span class="text-blue-400 font-bold">LinkedIn • Wednesday, 02:00 PM</span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Queued</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">"Why we completely abandoned manual outbound and built an autonomous edge pipeline that runs 24/7 on Cloudflare."</p>
+          <div class="text-[10px] text-slate-500 border-t border-slate-900 pt-2 flex justify-between">
+            <span>Target: B2B Decision Makers</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-rose-400 hover:underline">Remove</button>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <div class="flex justify-between items-center text-[10px] font-mono">
+            <span class="text-purple-400 font-bold">Meta Ads • Friday, 06:00 PM</span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Queued</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">"Attention operators: Eliminate lead friction permanently. Click below to inspect our automated architecture."</p>
+          <div class="text-[10px] text-slate-500 border-t border-slate-900 pt-2 flex justify-between">
+            <span>Target: High-Intent Retargeting</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-rose-400 hover:underline">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autonomous Self-Healing Log -->
+    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">Autonomous Self-Healing Event Telemetry</span>
+        <span class="text-[10px] text-emerald-400 font-mono">0 Errors / Auto-Correct Active</span>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 space-y-2">
+        <div class="flex items-center gap-2"><span class="text-indigo-400">[09:12:04]</span> <span>Market Radar: Scanned 12 competitor landing pages; identified headline copy fatigue.</span></div>
+        <div class="flex items-center gap-2"><span class="text-indigo-400">[11:45:22]</span> <span>Funnels Architect: Auto-deployed A/B Variant C on Cloudflare Pages. Conversion lift: +26%.</span></div>
+        <div class="flex items-center gap-2"><span class="text-indigo-400">[15:30:10]</span> <span>HubSpot Edge CRM: Scored 8 inbound leads; 3 promoted directly to Sales Qualified (SQL).</span></div>
+        <div class="flex items-center gap-2"><span class="text-emerald-400">[18:00:00]</span> <span>Autonomous Telemetry: All systems operational. Zero manual input required.</span></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function addNewQueueItem() {
+      const text = prompt('Enter Social Post Content:');
+      if (text) {
+        const list = document.getElementById('queueList');
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 animate-fade-in';
+        card.innerHTML = `
+          <div class="flex justify-between items-center text-[10px] font-mono">
+            <span class="text-indigo-400 font-bold">Multi-Channel • Auto-Scheduled</span>
+            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Queued</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">"${text}"</p>
+          <div class="text-[10px] text-slate-500 border-t border-slate-900 pt-2 flex justify-between">
+            <span>Direct Scheduled</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-rose-400 hover:underline">Remove</button>
+          </div>
+        `;
+        list.prepend(card);
+      }
+    }
+  </script>
+</body>
+</html>
