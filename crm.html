@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot Edge CRM | OmniGrowth OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased pb-12">
+
+  <!-- Universal Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="h-9 w-9 rounded-xl bg-brand-600 flex items-center justify-center font-black text-white text-lg shadow-lg">Ω</a>
+        <div>
+          <span class="font-extrabold text-sm text-white">OmniGrowth OS</span>
+          <span class="text-[10px] ml-2 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">HubSpot CRM Hub</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-2 text-xs font-medium">
+        <a href="/" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Dashboard</a>
+        <a href="/funnels.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Funnels</a>
+        <a href="/crm.html" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white">Edge CRM</a>
+        <a href="/copy-studio.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Copy Studio</a>
+        <a href="/seo-radar.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">SEO Radar</a>
+      </nav>
+      <div class="flex items-center gap-2 text-xs">
+        <button onclick="exportLeadsCsv()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold">
+          📥 Export CSV
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
+
+    <!-- Top KPI Bar -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Total Leads Captured</span>
+        <div id="statTotal" class="text-2xl font-black text-white mt-1">0</div>
+        <div class="text-[10px] text-emerald-400 mt-0.5">Real-time Funnel Sync</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Sales Qualified (SQL)</span>
+        <div id="statSql" class="text-2xl font-black text-indigo-400 mt-1">0</div>
+        <div class="text-[10px] text-indigo-400 mt-0.5">Score &gt; 80</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Deals Won</span>
+        <div id="statClosed" class="text-2xl font-black text-emerald-400 mt-1">0</div>
+        <div class="text-[10px] text-emerald-400 mt-0.5">Closed Pipeline</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <span class="text-[10px] uppercase font-mono text-slate-400">Average Lead Velocity</span>
+        <div class="text-2xl font-black text-white mt-1">1.4h</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">Automated Lifecycle</div>
+      </div>
+    </div>
+
+    <!-- Add Quick Lead Modal/Bar -->
+    <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold text-white uppercase tracking-wider">⚡ Direct Lead Injection:</span>
+      </div>
+      <form onsubmit="event.preventDefault(); addNewLeadManual();" class="flex flex-wrap items-center gap-2 text-xs flex-1 max-w-2xl">
+        <input type="text" id="manualName" placeholder="Full Name" required class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white flex-1 min-w-[140px] focus:outline-none focus:border-brand-500">
+        <input type="email" id="manualEmail" placeholder="Work Email" required class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white flex-1 min-w-[180px] focus:outline-none focus:border-brand-500">
+        <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 font-bold text-white rounded-xl transition">
+          + Add Lead
+        </button>
+      </form>
+    </div>
+
+    <!-- Kanban Board Columns -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Stage 1: Inbound MQL -->
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+            <span class="text-xs font-bold text-slate-200">1. Inbound Leads (MQL)</span>
+          </div>
+          <span id="badgeMql" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold">0</span>
+        </div>
+        <div id="columnMql" class="space-y-3 flex-1 overflow-y-auto">
+          <!-- Lead Cards -->
+        </div>
+      </div>
+
+      <!-- Stage 2: Sales Qualified (SQL) -->
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+            <span class="text-xs font-bold text-indigo-300">2. High Intent (SQL)</span>
+          </div>
+          <span id="badgeSql" class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-950 text-indigo-400 font-bold">0</span>
+        </div>
+        <div id="columnSql" class="space-y-3 flex-1 overflow-y-auto">
+          <!-- Lead Cards -->
+        </div>
+      </div>
+
+      <!-- Stage 3: Closed Won -->
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="text-xs font-bold text-emerald-300">3. Closed / Converted</span>
+          </div>
+          <span id="badgeClosed" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold">0</span>
+        </div>
+        <div id="columnClosed" class="space-y-3 flex-1 overflow-y-auto">
+          <!-- Lead Cards -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    let leadsData = [];
+
+    function initCrm() {
+      // Load from localStorage (connected to Funnels page!)
+      const stored = localStorage.getItem('omni_leads');
+      if (stored) {
+        leadsData = JSON.parse(stored);
+      } else {
+        // Seed initial enterprise mock leads
+        leadsData = [
+          { id: 1, name: "Marcus Vance", email: "m.vance@techhorizon.co", stage: "sql", score: 94, source: "ClickFunnels Edge", time: "10 mins ago" },
+          { id: 2, name: "Sarah Jenkins", email: "sarah@growthwave.io", stage: "mql", score: 72, source: "Viral 𝕏 Hook", time: "45 mins ago" },
+          { id: 3, name: "David Miller", email: "david@apexmedia.com", stage: "closed", score: 98, source: "Klaviyo Drip", time: "2 hours ago" }
+        ];
+        saveLeads();
+      }
+      renderPipeline();
+    }
+
+    function saveLeads() {
+      localStorage.setItem('omni_leads', JSON.stringify(leadsData));
+    }
+
+    function renderPipeline() {
+      const colMql = document.getElementById('columnMql');
+      const colSql = document.getElementById('columnSql');
+      const colClosed = document.getElementById('columnClosed');
+
+      colMql.innerHTML = '';
+      colSql.innerHTML = '';
+      colClosed.innerHTML = '';
+
+      let mqlCount = 0;
+      let sqlCount = 0;
+      let closedCount = 0;
+
+      leadsData.forEach(lead => {
+        const stage = lead.stage || (lead.score >= 80 ? 'sql' : 'mql');
+        const card = createLeadCard(lead, stage);
+
+        if (stage === 'closed') {
+          colClosed.appendChild(card);
+          closedCount++;
+        } else if (stage === 'sql') {
+          colSql.appendChild(card);
+          sqlCount++;
+        } else {
+          colMql.appendChild(card);
+          mqlCount++;
+        }
+      });
+
+      document.getElementById('badgeMql').innerText = mqlCount;
+      document.getElementById('badgeSql').innerText = sqlCount;
+      document.getElementById('badgeClosed').innerText = closedCount;
+
+      document.getElementById('statTotal').innerText = leadsData.length;
+      document.getElementById('statSql').innerText = sqlCount;
+      document.getElementById('statClosed').innerText = closedCount;
+    }
+
+    function createLeadCard(lead, stage) {
+      const div = document.createElement('div');
+      div.className = 'p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 shadow-md space-y-2 text-xs';
+      
+      let nextActionBtn = '';
+      if (stage === 'mql') {
+        nextActionBtn = `<button onclick="moveStage('${lead.email}', 'sql')" class="text-[10px] text-indigo-400 hover:text-white bg-indigo-500/10 px-2 py-1 rounded border border-indigo-500/20">Promote to SQL →</button>`;
+      } else if (stage === 'sql') {
+        nextActionBtn = `<button onclick="moveStage('${lead.email}', 'closed')" class="text-[10px] text-emerald-400 hover:text-white bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">Close Deal (Won) ✓</button>`;
+      }
+
+      div.innerHTML = `
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-bold text-white">${lead.name || 'Anonymous Visitor'}</div>
+            <div class="text-[11px] text-slate-400 font-mono">${lead.email}</div>
+          </div>
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${lead.score >= 80 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-300'}">
+            Score: ${lead.score || 75}
+          </span>
+        </div>
+        <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-900">
+          <span>${lead.source || 'Direct Optin'}</span>
+          <span>${lead.time || 'Recent'}</span>
+        </div>
+        <div class="flex justify-end pt-1">
+          ${nextActionBtn}
+        </div>
+      `;
+      return div;
+    }
+
+    function moveStage(email, targetStage) {
+      const lead = leadsData.find(l => l.email === email);
+      if (lead) {
+        lead.stage = targetStage;
+        saveLeads();
+        renderPipeline();
+      }
+    }
+
+    function addNewLeadManual() {
+      const name = document.getElementById('manualName').value;
+      const email = document.getElementById('manualEmail').value;
+      
+      // Auto-scoring logic (Business domain gets high score)
+      const isWorkEmail = !email.includes('gmail') && !email.includes('yahoo') && !email.includes('hotmail');
+      const score = isWorkEmail ? 95 : 70;
+      const stage = isWorkEmail ? 'sql' : 'mql';
+
+      leadsData.unshift({
+        id: Date.now(),
+        name,
+        email,
+        stage,
+        score,
+        source: 'CRM Manual Entry',
+        time: 'Just now'
+      });
+
+      saveLeads();
+      renderPipeline();
+
+      document.getElementById('manualName').value = '';
+      document.getElementById('manualEmail').value = '';
+    }
+
+    function exportLeadsCsv() {
+      if (!leadsData.length) return alert('No leads to export.');
+      let csv = 'Name,Email,Stage,Score,Source\n';
+      leadsData.forEach(l => {
+        csv += `"${l.name || ''}","${l.email}","${l.stage}","${l.score}","${l.source || ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'omnigrowth-crm-leads.csv';
+      a.click();
+    }
+
+    window.onload = initCrm;
+  </script>
+</body>
+</html>
