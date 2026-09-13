@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickFunnels Architect | OmniGrowth OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+          colors: { brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased pb-12">
+
+  <!-- Universal Responsive Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="h-9 w-9 rounded-xl bg-brand-600 flex items-center justify-center font-black text-white text-lg shadow-lg">Ω</a>
+        <div>
+          <span class="font-extrabold text-sm text-white">OmniGrowth OS</span>
+          <span class="text-[10px] ml-2 px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono">Funnel Engine</span>
+        </div>
+      </div>
+      <!-- Global App Navigation Links -->
+      <nav class="hidden md:flex items-center gap-2 text-xs font-medium">
+        <a href="/" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Dashboard</a>
+        <a href="/funnels.html" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white">Funnels</a>
+        <a href="/crm.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Edge CRM</a>
+        <a href="/copy-studio.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">Copy Studio</a>
+        <a href="/seo-radar.html" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">SEO Radar</a>
+      </nav>
+      <!-- Mobile Links Button -->
+      <div class="md:hidden flex gap-2 text-xs">
+        <a href="/" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- Funnel Editor Controls -->
+    <div class="lg:col-span-4 space-y-4">
+      <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+        <h2 class="text-sm font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
+          <span>🛠️ Live Funnel Designer</span>
+        </h2>
+        <p class="text-xs text-slate-400 mb-4">बदलाव करें, दाएँ हाथ पर लाइव प्रीव्यू तुरंत अपडेट होगा।</p>
+        
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Headline Hook</label>
+            <input type="text" id="funnelInputHeadline" value="Scale Your Customer Acquisition on Autopilot" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500" oninput="updateLivePreview()">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Subheadline / Value Statement</label>
+            <textarea id="funnelInputSub" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500" oninput="updateLivePreview()">Eliminate friction, capture validated leads, and outpace outdated competitors using our 2026 Edge Growth Engine.</textarea>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Call-To-Action (Button Text)</label>
+            <input type="text" id="funnelInputCta" value="Claim Your Free Growth Blueprint →" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500" oninput="updateLivePreview()">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Primary Color Theme</label>
+            <select id="funnelColorTheme" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white" onchange="updateLivePreview()">
+              <option value="indigo">Indigo Futuristic (Recommended)</option>
+              <option value="emerald">Emerald High-Conversion</option>
+              <option value="rose">Rose Bold Impact</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800 flex gap-2">
+          <button onclick="downloadCleanHtml()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 font-bold text-white text-xs rounded-xl transition">
+            📥 Download Code (.html)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-Time Interactive Live Funnel Preview -->
+    <div class="lg:col-span-8">
+      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 min-h-[600px] flex flex-col justify-between">
+        
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Live Edge Render Preview
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">Load Time: ~0.03s</span>
+        </div>
+
+        <div id="previewCanvas" class="max-w-xl mx-auto text-center py-12 space-y-5">
+          <span id="badgeTheme" class="text-[11px] font-mono px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            2026 Ultra-High Converting Edge Architecture
+          </span>
+          <h1 id="previewHeadline" class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+            Scale Your Customer Acquisition on Autopilot
+          </h1>
+          <p id="previewSub" class="text-sm text-slate-400 leading-relaxed max-w-md mx-auto">
+            Eliminate friction, capture validated leads, and outpace outdated competitors using our 2026 Edge Growth Engine.
+          </p>
+
+          <!-- Working Interactive Opt-in Form -->
+          <form onsubmit="event.preventDefault(); simulateOptin();" class="p-5 rounded-2xl bg-slate-950 border border-slate-800 max-w-md mx-auto space-y-3 mt-6 shadow-2xl">
+            <div class="text-xs font-semibold text-slate-300 text-left">Enter your email to test lead capture:</div>
+            <input type="email" id="testLeadEmail" required placeholder="founder@company.com" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500">
+            <button type="submit" id="previewBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-500 font-bold text-white text-xs rounded-xl transition shadow-lg shadow-brand-500/20">
+              Claim Your Free Growth Blueprint →
+            </button>
+            <div id="optinFeedback" class="hidden text-emerald-400 text-[11px] font-semibold text-center mt-2">
+              ✓ Lead captured successfully! Sent to Edge CRM.
+            </div>
+          </form>
+        </div>
+
+        <div class="border-t border-slate-800/80 pt-3 text-[11px] text-slate-500 flex justify-between">
+          <span>ClickFunnels Edge Integration Standard</span>
+          <span>Zero Server Overhead</span>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function updateLivePreview() {
+      const h = document.getElementById('funnelInputHeadline').value;
+      const s = document.getElementById('funnelInputSub').value;
+      const c = document.getElementById('funnelInputCta').value;
+      const theme = document.getElementById('funnelColorTheme').value;
+
+      document.getElementById('previewHeadline').innerText = h;
+      document.getElementById('previewSub').innerText = s;
+      document.getElementById('previewBtn').innerText = c;
+
+      const btn = document.getElementById('previewBtn');
+      const badge = document.getElementById('badgeTheme');
+      if (theme === 'emerald') {
+        btn.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 font-bold text-white text-xs rounded-xl transition shadow-lg shadow-emerald-500/20';
+        badge.className = 'text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+      } else if (theme === 'rose') {
+        btn.className = 'w-full py-3 bg-rose-600 hover:bg-rose-500 font-bold text-white text-xs rounded-xl transition shadow-lg shadow-rose-500/20';
+        badge.className = 'text-[11px] font-mono px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20';
+      } else {
+        btn.className = 'w-full py-3 bg-brand-600 hover:bg-brand-500 font-bold text-white text-xs rounded-xl transition shadow-lg shadow-brand-500/20';
+        badge.className = 'text-[11px] font-mono px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20';
+      }
+    }
+
+    function simulateOptin() {
+      const email = document.getElementById('testLeadEmail').value;
+      const feedback = document.getElementById('optinFeedback');
+      feedback.innerText = `✓ Lead (${email}) captured! Stored in Edge CRM.`;
+      feedback.classList.remove('hidden');
+
+      // Save to localStorage so CRM page can read it!
+      const existingLeads = JSON.parse(localStorage.getItem('omni_leads') || '[]');
+      existingLeads.unshift({ email, source: 'ClickFunnels Edge Preview', score: 94, date: new Date().toLocaleTimeString() });
+      localStorage.setItem('omni_leads', JSON.stringify(existingLeads));
+
+      setTimeout(() => feedback.classList.add('hidden'), 4000);
+      document.getElementById('testLeadEmail').value = '';
+    }
+
+    function downloadCleanHtml() {
+      const h = document.getElementById('funnelInputHeadline').value;
+      const s = document.getElementById('funnelInputSub').value;
+      const c = document.getElementById('funnelInputCta').value;
+      const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Landing Funnel</title><script src="https://cdn.tailwindcss.com"><\/script></head><body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-6"><div class="max-w-xl text-center space-y-6"><h1 class="text-4xl font-extrabold leading-tight">${h}</h1><p class="text-slate-400 text-base">${s}</p><div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3"><input type="email" placeholder="Enter your business email" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm"><button class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 font-bold text-sm rounded-xl">${c}</button></div></div></body></html>`;
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'high-converting-funnel.html';
+      a.click();
+    }
+  </script>
+</body>
+</html>
