@@ -1,104 +1,684 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniGrowth OS | Autonomous AI Marketing Platform</title>
+  <title>OmniGrowth OS | 2026 Autonomous Growth Engine</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: { extend: { fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] } } }
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3' }
+          }
+        }
+      }
     }
   </script>
+  <style>
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-nav { background: rgba(10, 15, 30, 0.92); backdrop-filter: blur(20px); }
+    .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
-  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white flex overflow-hidden">
+
+  <!-- ================= SIDEBAR NAVIGATION ================= -->
+  <aside class="w-64 glass-nav border-r border-slate-800/80 h-screen flex flex-col justify-between shrink-0 hidden md:flex z-50">
+    <div>
+      <!-- Brand Logo -->
+      <div class="p-5 border-b border-slate-800/80 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-brand-500/30">Ω</div>
+          <div>
+            <h1 class="font-extrabold text-sm tracking-tight text-white leading-none">OmniGrowth</h1>
+            <span class="text-[10px] text-indigo-400 font-mono">Enterprise AI Suite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-3 space-y-1 text-xs font-medium">
+        <button onclick="navigatePage('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-brand-600/10 text-brand-400 border border-brand-500/20">
+          <span>⚡</span> Autonomous Brain
+        </button>
+        <button onclick="navigatePage('copyengine')" id="nav-copyengine" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>✍️</span> Jasper Copy Studio
+        </button>
+        <button onclick="navigatePage('funnels')" id="nav-funnels" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>🏗️</span> ClickFunnels Architect
+        </button>
+        <button onclick="navigatePage('crm')" id="nav-crm" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>👥</span> HubSpot Edge CRM
+        </button>
+        <button onclick="navigatePage('emailflow')" id="nav-emailflow" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>✉️</span> Klaviyo Lifecycle Flow
+        </button>
+        <button onclick="navigatePage('seo')" id="nav-seo" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>🔍</span> Semrush SEO Radar
+        </button>
+        <button onclick="navigatePage('scheduler')" id="nav-scheduler" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>📅</span> Buffer Omni-Scheduler
+        </button>
+        <button onclick="navigatePage('analytics')" id="nav-analytics" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <span>📊</span> Triple Whale Analytics
+        </button>
+      </nav>
+    </div>
+
+    <!-- Active Runtime Status -->
+    <div class="p-4 border-t border-slate-800/80 bg-slate-950/40">
+      <div class="flex items-center justify-between text-[11px] mb-1">
+        <span class="text-slate-400">Cloudflare Edge</span>
+        <span class="text-emerald-400 font-mono flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 0.04ms</span>
+      </div>
+      <div class="text-[10px] text-slate-500 font-mono">Build: Enterprise 2026.4</div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+    
+    <!-- Topbar -->
+    <header class="h-14 border-b border-slate-800/80 glass-nav px-4 sm:px-6 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-xl text-white shadow-lg">Ω</div>
-        <div>
-          <span class="font-extrabold text-lg text-white">OmniGrowth OS</span>
-          <span class="text-xs ml-2 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">2026 Autonomous</span>
+        <!-- Mobile Sidebar Toggle -->
+        <button onclick="toggleMobileNav()" class="md:hidden text-slate-400 hover:text-white text-lg">☰</button>
+        <div id="pageTitle" class="font-bold text-sm text-white flex items-center gap-2">
+          <span>⚡ Autonomous Growth Engine</span>
         </div>
       </div>
-      <div class="text-xs text-slate-400 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Edge: Cloudflare Pages
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <div class="lg:col-span-4 bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-        <h2 class="text-base font-bold text-white mb-2">🚀 Minimal Business Input</h2>
-        <p class="text-xs text-slate-400 mb-6">सिर्फ सामान्य जानकारी दर्ज करें, बाकी रणनीति एजेंट्स खुद बनाएंगे।</p>
-        <form id="growthForm" onsubmit="event.preventDefault(); triggerAgents();" class="space-y-4 text-xs">
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Business Name</label>
-            <input type="text" id="bizName" required placeholder="जैसे: Digisone Digital" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Target Audience</label>
-            <input type="text" id="bizAudience" required placeholder="जैसे: SaaS Founders, Local Boutiques" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Primary Growth Goal</label>
-            <input type="text" id="bizGoal" required placeholder="जैसे: High-Ticket Client Acquisition" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500">
-          </div>
-          <button type="submit" id="btnRun" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 font-bold text-white rounded-xl shadow-lg transition">⚡ Run Autonomous System</button>
-        </form>
-      </div>
-
-      <div class="lg:col-span-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-        <h3 class="text-base font-bold text-white mb-4">Autonomous Marketing Deliverables</h3>
-        <div id="outputArea" class="space-y-4">
-          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-xs font-bold text-sky-400">𝕏 Viral Thread Hook</span>
-            <p id="outTweet" class="text-sm text-slate-300 mt-2 font-mono">जानकारी दर्ज करके 'Run' पर क्लिक करें...</p>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-xs font-bold text-blue-400">LinkedIn Authority Post (PAS Framework)</span>
-            <p id="outLinkedin" class="text-sm text-slate-300 mt-2 whitespace-pre-line"></p>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-xs font-bold text-purple-400">Klaviyo Nurture Email Sequence</span>
-            <p id="outEmail" class="text-sm text-slate-300 mt-2 whitespace-pre-line"></p>
-          </div>
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:inline-block text-[11px] px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-mono">
+          Unified AI Engine (30+ Platforms Active)
+        </span>
+        <div id="activeBizBadge" class="text-xs text-slate-300 font-semibold px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
+          No Business Loaded
         </div>
       </div>
-    </div>
-  </main>
+    </header>
 
+    <!-- Scrollable Workspace Views -->
+    <main class="flex-1 overflow-y-auto custom-scroll p-4 sm:p-6 bg-slate-950">
+
+      <!-- ================= PAGE 1: AUTONOMOUS DASHBOARD ================= -->
+      <section id="view-dashboard" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Quick Input Terminal -->
+          <div class="lg:col-span-4 space-y-6">
+            <div class="glass-card rounded-2xl p-5 shadow-2xl relative overflow-hidden">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Target Business Parameters</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono">Zero-Config</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">
+                बुनियादी जानकारी दर्ज करें। 5 ऑटोनॉमस एजेंट्स पूरे बिज़नेस का मार्केटिंग इंफ्रास्ट्रक्चर खुद कंपाइल करेंगे।
+              </p>
+
+              <form id="growthConfigForm" onsubmit="event.preventDefault(); triggerAutonomousMesh();" class="space-y-3 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Company / Brand Name</label>
+                  <input type="text" id="cfgName" required placeholder="e.g. Apex Global Media" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Target Persona / ICP</label>
+                  <input type="text" id="cfgAudience" required placeholder="e.g. B2B Founders, Real Estate Investors" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Core Offering / Service</label>
+                  <input type="text" id="cfgOffer" required placeholder="e.g. AI-Powered Pipeline Scaling" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Primary Growth Objective</label>
+                  <select id="cfgGoal" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-brand-500">
+                    <option value="High-Ticket Client Acquisition">High-Ticket Client Acquisition & DMs</option>
+                    <option value="Direct E-commerce Hyper-Scale">Direct E-commerce Hyper-Scale & Retargeting</option>
+                    <option value="Viral Organic Reach & Omnipresence">Viral Organic Reach & Omnipresence</option>
+                  </select>
+                </div>
+                <button type="submit" id="btnExecuteMesh" class="w-full py-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 font-bold text-white text-xs rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2">
+                  <span>⚡ Deploy Autonomous Engine</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Real-Time Autonomous Swarm Monitor -->
+            <div class="glass-card rounded-2xl p-5">
+              <h3 class="text-xs uppercase font-bold tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+                <span>Autonomous Mesh Protocol</span>
+                <span id="meshTelemetry" class="text-[10px] text-slate-500 font-mono">STANDBY</span>
+              </h3>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/50 border border-slate-800">
+                  <span class="text-slate-300 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 1. ICP & Scraping Radar</span>
+                  <span id="st1" class="text-slate-500 font-mono text-[11px]">Ready</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/50 border border-slate-800">
+                  <span class="text-slate-300 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 2. Jasper Copy Synthesis</span>
+                  <span id="st2" class="text-slate-500 font-mono text-[11px]">Ready</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/50 border border-slate-800">
+                  <span class="text-slate-300 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 3. Edge Funnel Compiler</span>
+                  <span id="st3" class="text-slate-500 font-mono text-[11px]">Ready</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/50 border border-slate-800">
+                  <span class="text-slate-300 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 4. Klaviyo Flow Dispatcher</span>
+                  <span id="st4" class="text-slate-500 font-mono text-[11px]">Ready</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/50 border border-slate-800">
+                  <span class="text-slate-300 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> 5. Telemetry & CRO Engine</span>
+                  <span id="st5" class="text-slate-500 font-mono text-[11px]">Ready</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enterprise Metric Overview & Live Feed -->
+          <div class="lg:col-span-8 space-y-6">
+            
+            <!-- Quick Stat Banner -->
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              <div class="glass-card rounded-2xl p-4">
+                <div class="text-[11px] text-slate-400 font-mono uppercase">AI Assets Active</div>
+                <div id="statAssets" class="text-2xl font-black text-white mt-1">0</div>
+                <div class="text-[10px] text-indigo-400 mt-1">Multi-Channel Live</div>
+              </div>
+              <div class="glass-card rounded-2xl p-4">
+                <div class="text-[11px] text-slate-400 font-mono uppercase">Edge Funnel Speed</div>
+                <div class="text-2xl font-black text-emerald-400 mt-1">32ms</div>
+                <div class="text-[10px] text-emerald-400 mt-1">Lighthouse: 100/100</div>
+              </div>
+              <div class="glass-card rounded-2xl p-4">
+                <div class="text-[11px] text-slate-400 font-mono uppercase">Pipeline Leads</div>
+                <div id="statLeads" class="text-2xl font-black text-indigo-400 mt-1">0</div>
+                <div class="text-[10px] text-slate-400 mt-1">HubSpot Synced</div>
+              </div>
+              <div class="glass-card rounded-2xl p-4">
+                <div class="text-[11px] text-slate-400 font-mono uppercase">Autonomous Mode</div>
+                <div class="text-2xl font-black text-white mt-1">Active</div>
+                <div class="text-[10px] text-emerald-400 mt-1">Self-Healing Enabled</div>
+              </div>
+            </div>
+
+            <!-- Instant Access Multi-Module Matrix -->
+            <div class="glass-card rounded-2xl p-6">
+              <h3 class="text-sm font-bold text-white mb-2">Live Production Command Grid</h3>
+              <p class="text-xs text-slate-400 mb-6">प्रत्येक मॉड्यूल आपके बिज़नेस डेटा से सीधे जुड़ा हुआ है और रीयल-टाइम में चालू है।</p>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div onclick="navigatePage('copyengine')" class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/50 cursor-pointer transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-white flex items-center gap-2"><span>✍️</span> Jasper Copy Studio</span>
+                    <span class="text-[10px] text-brand-400 font-mono">Open →</span>
+                  </div>
+                  <p class="text-slate-400 text-[11px]">X Threads, LinkedIn Thought Leadership, High-ROAS Ad Copies.</p>
+                </div>
+                
+                <div onclick="navigatePage('funnels')" class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/50 cursor-pointer transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-white flex items-center gap-2"><span>🏗️</span> ClickFunnels Architect</span>
+                    <span class="text-[10px] text-brand-400 font-mono">Open →</span>
+                  </div>
+                  <p class="text-slate-400 text-[11px]">हाई-स्पीड एज लैंडिंग पेजेस और फ़नल कोड 1-क्लिक एक्सपोर्टर।</p>
+                </div>
+
+                <div onclick="navigatePage('crm')" class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/50 cursor-pointer transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-white flex items-center gap-2"><span>👥</span> HubSpot Edge CRM</span>
+                    <span class="text-[10px] text-brand-400 font-mono">Open →</span>
+                  </div>
+                  <p class="text-slate-400 text-[11px]">लीड इनबॉक्स, ऑटो-स्कोरिंग (MQL/SQL), लाइफसाइकिल पाइपलाइन।</p>
+                </div>
+
+                <div onclick="navigatePage('emailflow')" class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/50 cursor-pointer transition">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-white flex items-center gap-2"><span>✉️</span> Klaviyo Lifecycle Flow</span>
+                    <span class="text-[10px] text-brand-400 font-mono">Open →</span>
+                  </div>
+                  <p class="text-slate-400 text-[11px]">3-स्टेप ऑटोमेटेड बिहेवियरल ईमेल नर्चरिंग वर्कफ़्लोज़।</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 2: JASPER COPY STUDIO ================= -->
+      <section id="view-copyengine" class="hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>✍️</span> Jasper AI Creative Copy Studio</h2>
+            <p class="text-xs text-slate-400">PAS, AIDA और BAB फ्रेमवर्क पर आधारित ऑटोमेटेड वायरल कंटेंट जनरेशन।</p>
+          </div>
+          <button onclick="regenerateAllCopy()" class="px-3.5 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold">Regenerate Copy</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-sky-400 font-mono">𝕏 (Twitter) Viral Thread Hook</span>
+              <button onclick="copyElementText('copyTweet')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <textarea id="copyTweet" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-blue-400 font-mono">LinkedIn Thought Leadership (PAS Framework)</span>
+              <button onclick="copyElementText('copyLinkedin')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <textarea id="copyLinkedin" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-emerald-400 font-mono">Meta & Instagram High-ROAS Ad Copy</span>
+              <button onclick="copyElementText('copyMeta')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <textarea id="copyMeta" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-amber-400 font-mono">High-Intent Google Ads Responsive Headline & Description</span>
+              <button onclick="copyElementText('copyGoogle')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <textarea id="copyGoogle" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 3: CLICKFUNNELS ARCHITECT ================= -->
+      <section id="view-funnels" class="hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>🏗️</span> ClickFunnels Edge Architect</h2>
+            <p class="text-xs text-slate-400">अल्ट्रा-फ़ास्ट कनवर्टिंग लैंडिंग पेज इंजन और वन-क्लिक कोड एक्सपोर्ट।</p>
+          </div>
+          <button onclick="exportFunnelHtml()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold">Download Standalone HTML</button>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6">
+          <div class="max-w-2xl mx-auto py-8 text-center space-y-4">
+            <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">Edge Loaded: 0.02s Response</span>
+            <h1 id="funnelH1" class="text-3xl sm:text-4xl font-black text-white leading-tight">Scale Your Pipeline with Autonomous Precision</h1>
+            <p id="funnelSub" class="text-sm text-slate-400 max-w-xl mx-auto">Eliminate friction, capture validated leads, and outpace outdated competitors systematically.</p>
+            
+            <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 max-w-md mx-auto space-y-3 mt-6">
+              <div class="text-xs font-semibold text-slate-300">Claim Free Strategic Architecture Audit</div>
+              <input type="email" placeholder="Enter business email" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white">
+              <button id="funnelBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-500 font-bold text-white text-xs rounded-xl transition">Unlock Full Access →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 4: HUBSPOT EDGE CRM ================= -->
+      <section id="view-crm" class="hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>👥</span> HubSpot Style Edge CRM</h2>
+            <p class="text-xs text-slate-400">एआई-संचालित लीड स्कोरिंग (1-100) और ऑटोमेटेड पाइपलाइन विज़ुअलाइज़ेशन।</p>
+          </div>
+          <button onclick="openAddLeadModal()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold">+ Add New Lead</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Stage 1: Inbound Lead -->
+          <div class="glass-card rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-slate-300">Inbound Leads</span>
+              <span id="cntLeads" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">2</span>
+            </div>
+            <div id="colLeads" class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div class="font-bold text-white">alex.turner@saasmatrix.io</div>
+                <div class="text-[10px] text-slate-400 mt-1">Source: Viral 𝕏 Hook</div>
+                <div class="mt-2 text-[10px] text-indigo-400 font-mono font-bold">Intent Score: 78 (MQL)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 2: Qualified (SQL) -->
+          <div class="glass-card rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-indigo-400">Sales Qualified (SQL)</span>
+              <span id="cntSql" class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-950 text-indigo-400">1</span>
+            </div>
+            <div id="colSql" class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div class="font-bold text-white">rachel@vanguardcapital.com</div>
+                <div class="text-[10px] text-slate-400 mt-1">Source: Edge Funnel Optin</div>
+                <div class="mt-2 text-[10px] text-emerald-400 font-mono font-bold">Intent Score: 94 (SQL)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 3: Closed / Deal Won -->
+          <div class="glass-card rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-emerald-400">Deal Closed</span>
+              <span id="cntClosed" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400">1</span>
+            </div>
+            <div id="colClosed" class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div class="font-bold text-white">ceo@hypergrowth.co</div>
+                <div class="text-[10px] text-slate-400 mt-1">Value: $4,500/mo</div>
+                <div class="mt-2 text-[10px] text-emerald-400 font-mono font-bold">Status: Completed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 5: KLAVIYO LIFECYCLE FLOW ================= -->
+      <section id="view-emailflow" class="hidden space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>✉️</span> Klaviyo Behavioral Drip Engine</h2>
+          <p class="text-xs text-slate-400">3-स्टेप ऑटोमेटेड ईमेल नर्चरिंग सीक्वेंस जो बिना किसी रुकावट के लगातार लीड्स को कन्वर्ट करता है।</p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-400 font-mono">Drip #1 (Immediate Delivery) - Hook & Friction Breaker</span>
+              <button onclick="copyElementText('emailDrip1')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <div class="text-xs font-semibold text-slate-300">Subject: <span id="emailSub1" class="text-white"></span></div>
+            <textarea id="emailDrip1" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-400 font-mono">Drip #2 (Day 2 Delivery) - Objection Liquidation & Case Study</span>
+              <button onclick="copyElementText('emailDrip2')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <div class="text-xs font-semibold text-slate-300">Subject: <span id="emailSub2" class="text-white"></span></div>
+            <textarea id="emailDrip2" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-400 font-mono">Drip #3 (Day 4 Delivery) - Scarcity Close & Direct Call to Action</span>
+              <button onclick="copyElementText('emailDrip3')" class="text-[11px] text-slate-400 hover:text-white">Copy</button>
+            </div>
+            <div class="text-xs font-semibold text-slate-300">Subject: <span id="emailSub3" class="text-white"></span></div>
+            <textarea id="emailDrip3" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 6: SEMRUSH SEO RADAR ================= -->
+      <section id="view-seo" class="hidden space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>🔍</span> Semrush SEO Competitor & Cluster Radar</h2>
+          <p class="text-xs text-slate-400">प्रोग्रामैटिक लॉन्ग-टेल कीवर्ड क्लस्टर्स और ऑर्गेनिक डोमिनेंस ब्लूप्रिंट्स।</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-6 glass-card rounded-2xl p-5 space-y-4">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Semantic Keyword Opportunities</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400">
+                    <th class="pb-2">Keyword Cluster</th>
+                    <th class="pb-2">Vol (Mo)</th>
+                    <th class="pb-2">KD</th>
+                    <th class="pb-2">Intent</th>
+                  </tr>
+                </thead>
+                <tbody id="seoTableBody" class="divide-y divide-slate-800/60 font-mono text-[11px]">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 glass-card rounded-2xl p-5 space-y-3">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Programmatic Pillar Article Plan</h3>
+            <div id="seoArticleHeading" class="text-sm font-semibold text-indigo-400"></div>
+            <textarea id="seoArticleBody" rows="11" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 leading-relaxed"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 7: BUFFER OMNI-SCHEDULER ================= -->
+      <section id="view-scheduler" class="hidden space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>📅</span> Buffer / Hootsuite Omni-Scheduler</h2>
+          <p class="text-xs text-slate-400">मल्टी-नेटवर्क ऑटोमेटेड कंटेंट डिस्पैच पाइपलाइन (LinkedIn, X, Meta)।</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex justify-between text-xs font-bold text-sky-400">
+              <span>Monday Queue (09:00 AM)</span>
+              <span class="text-[10px] text-emerald-400">Scheduled</span>
+            </div>
+            <div class="text-xs text-slate-300 p-3 rounded-lg bg-slate-950 border border-slate-800">
+              "The 2026 Shift: Why manual outreach is dying and what to build instead."
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex justify-between text-xs font-bold text-blue-400">
+              <span>Wednesday Queue (02:00 PM)</span>
+              <span class="text-[10px] text-emerald-400">Scheduled</span>
+            </div>
+            <div class="text-xs text-slate-300 p-3 rounded-lg bg-slate-950 border border-slate-800">
+              "Case breakdown: How we achieved 3x client acquisition without booking discovery calls."
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="flex justify-between text-xs font-bold text-purple-400">
+              <span>Friday Queue (05:00 PM)</span>
+              <span class="text-[10px] text-emerald-400">Scheduled</span>
+            </div>
+            <div class="text-xs text-slate-300 p-3 rounded-lg bg-slate-950 border border-slate-800">
+              "Full technical teardown of our autonomous growth stack on Cloudflare Pages."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 8: TRIPLE WHALE ANALYTICS ================= -->
+      <section id="view-analytics" class="hidden space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2"><span>📊</span> Triple Whale First-Party Attribution Engine</h2>
+          <p class="text-xs text-slate-400">कुकी-रहित ट्रैकिंग, रोआस (ROAS) ऑप्टिमाइज़ेशन और ऑटोनॉमस A/B विनर सेलेक्शन।</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="glass-card rounded-2xl p-5">
+            <div class="text-xs text-slate-400 font-mono uppercase">Total Simulated Footprint</div>
+            <div class="text-3xl font-black text-white mt-1">14,920</div>
+            <div class="text-xs text-emerald-400 mt-1">↑ +38.4% WoW Velocity</div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <div class="text-xs text-slate-400 font-mono uppercase">Blended ROAS / Conversion</div>
+            <div class="text-3xl font-black text-indigo-400 mt-1">4.82x</div>
+            <div class="text-xs text-emerald-400 mt-1">Edge Cache Conversion Win</div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <div class="text-xs text-slate-400 font-mono uppercase">Cost Per Acquisition (CPA)</div>
+            <div class="text-3xl font-black text-emerald-400 mt-1">$4.18</div>
+            <div class="text-xs text-slate-400 mt-1">Industry Avg: $32.00</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ENGINE ================= -->
   <script>
-    function triggerAgents() {
-      const name = document.getElementById('bizName').value;
-      const audience = document.getElementById('bizAudience').value;
-      const goal = document.getElementById('bizGoal').value;
+    // State Store
+    let currentBusiness = {
+      name: "Apex Growth Engine",
+      audience: "B2B SaaS Founders",
+      offer: "Zero-Friction Pipeline Automation",
+      goal: "High-Ticket Client Acquisition"
+    };
 
-      document.getElementById('btnRun').innerText = '⚙️ एजेंट्स काम कर रहे हैं...';
-      setTimeout(() => {
-        document.getElementById('outTweet').innerText = `90% of ${audience} lose revenue not from lack of effort, but due to zero marketing automation.
+    function navigatePage(pageId) {
+      const pages = ['dashboard', 'copyengine', 'funnels', 'crm', 'emailflow', 'seo', 'scheduler', 'analytics'];
+      pages.forEach(p => {
+        const view = document.getElementById('view-' + p);
+        const nav = document.getElementById('nav-' + p);
+        if (view) view.classList.add('hidden');
+        if (nav) {
+          nav.className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900/60';
+        }
+      });
 
-Here is how ${name} fixes this permanently: 🧵👇`;
-        document.getElementById('outLinkedin').innerText = `Scaling in the ${audience} domain shouldn't require working 80 hours a week.
+      const targetView = document.getElementById('view-' + pageId);
+      const targetNav = document.getElementById('nav-' + pageId);
+      if (targetView) targetView.classList.remove('hidden');
+      if (targetNav) {
+        targetNav.className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-brand-600/10 text-brand-400 border border-brand-500/20';
+      }
 
-With ${name}, our primary goal is ${goal}.
-
-Here is the systematic architecture we deploy...`;
-        document.getElementById('outEmail').innerText = `Subject: The single missing piece in your ${goal} roadmap
-
-Hey there,
-
-Most ${audience} focus on generic marketing.
-At ${name}, we take a completely autonomous approach.
-
-Best,
-Team ${name}`;
-        document.getElementById('btnRun').innerText = '⚡ Run Autonomous System';
-      }, 1000);
+      const titles = {
+        dashboard: '⚡ Autonomous Growth Engine',
+        copyengine: '✍️ Jasper AI Creative Copy Studio',
+        funnels: '🏗️ ClickFunnels Edge Architect',
+        crm: '👥 HubSpot Edge CRM Hub',
+        emailflow: '✉️ Klaviyo Behavioral Lifecycle',
+        seo: '🔍 Semrush SEO Cluster Radar',
+        scheduler: '📅 Buffer Omni-Scheduler',
+        analytics: '📊 Triple Whale Attribution Engine'
+      };
+      document.getElementById('pageTitle').innerHTML = titles[pageId] || 'OmniGrowth OS';
     }
+
+    function triggerAutonomousMesh() {
+      const name = document.getElementById('cfgName').value;
+      const audience = document.getElementById('cfgAudience').value;
+      const offer = document.getElementById('cfgOffer').value;
+      const goal = document.getElementById('cfgGoal').value;
+
+      currentBusiness = { name, audience, offer, goal };
+      document.getElementById('activeBizBadge').innerText = name;
+
+      const btn = document.getElementById('btnExecuteMesh');
+      btn.disabled = true;
+      btn.innerHTML = '⚙️ Swarm Mesh Active...';
+      document.getElementById('meshTelemetry').innerText = 'EXECUTING';
+      document.getElementById('meshTelemetry').className = 'text-[10px] text-amber-400 font-mono animate-pulse';
+
+      // Step by step visual swarm execution
+      setTimeout(() => { document.getElementById('st1').innerText = '100% OK'; document.getElementById('st1').className = 'text-emerald-400 font-mono text-[11px]'; }, 500);
+      setTimeout(() => { document.getElementById('st2').innerText = '100% OK'; document.getElementById('st2').className = 'text-emerald-400 font-mono text-[11px]'; }, 1000);
+      setTimeout(() => { document.getElementById('st3').innerText = '100% OK'; document.getElementById('st3').className = 'text-emerald-400 font-mono text-[11px]'; }, 1500);
+      setTimeout(() => { document.getElementById('st4').innerText = '100% OK'; document.getElementById('st4').className = 'text-emerald-400 font-mono text-[11px]'; }, 2000);
+      setTimeout(() => { 
+        document.getElementById('st5').innerText = '100% OK'; 
+        document.getElementById('st5').className = 'text-emerald-400 font-mono text-[11px]';
+        document.getElementById('meshTelemetry').innerText = 'AUTONOMOUS LOOP ACTIVE';
+        document.getElementById('meshTelemetry').className = 'text-[10px] text-emerald-400 font-mono';
+        
+        btn.disabled = false;
+        btn.innerHTML = '⚡ Deploy Autonomous Engine';
+        document.getElementById('statAssets').innerText = '24';
+        document.getElementById('statLeads').innerText = '4';
+
+        populateAllModules();
+        alert('OmniGrowth OS: ऑल-इन-वन एंटरप्राइज़ मार्केटिंग आर्किटेक्चर सफलतापूर्वक तैयार हो चुका है!');
+      }, 2500);
+    }
+
+    function populateAllModules() {
+      const { name, audience, offer, goal } = currentBusiness;
+
+      // Copy Studio
+      document.getElementById('copyTweet').value = `Most ${audience} fail to scale not because of product flaws, but because their acquisition architecture is fragmented.\n\nHere is how ${name} fixes this permanently through ${offer}: 🧵👇\n\n1/ Eliminate manual chasing.\n2/ Deploy automated intent-based edge funnels.\n3/ Convert visitors directly into ${goal}.`;
+      
+      document.getElementById('copyLinkedin').value = `To every decision-maker across the ${audience} landscape:\n\nThe old playbooks of spray-and-pray outbound are dead.\n\nAt ${name}, our focus is laser-targeted on one outcome: ${goal}.\n\nBy systematizing ${offer}, we remove operational drag and let your growth compound automatically.\n\nWhat is your biggest bottleneck this quarter?`;
+
+      document.getElementById('copyMeta').value = `Attention ${audience}: Stop burning capital on outdated marketing tactics.\n\nDiscover how ${name} helps you achieve ${goal} using enterprise-grade automation.\n\n👉 Tap below to get access to ${offer}.`;
+
+      document.getElementById('copyGoogle').value = `Headline 1: Automated ${goal} | ${name}\nHeadline 2: Scale With ${offer}\nHeadline 3: Enterprise Marketing Engine\nDescription: Transform how ${audience} scale customer acquisition with high-speed automated architectures.`;
+
+      // Funnel Architect
+      document.getElementById('funnelH1').innerText = `Systematic ${goal} Engineered for ${audience}`;
+      document.getElementById('funnelSub').innerText = `Powered by ${name}. Accelerate adoption, eliminate friction, and deploy ${offer} with enterprise edge speed.`;
+      document.getElementById('funnelBtn').innerText = `Get Instant Access to ${name} →`;
+
+      // Email Drip Flow
+      document.getElementById('emailSub1').innerText = `A radical paradigm shift in ${goal} for ${name}`;
+      document.getElementById('emailDrip1').value = `Hi there,\n\nStruggling to achieve consistent ${goal} in your business?\n\nMost ${audience} hit a wall because they rely on manual intervention. At ${name}, we built ${offer} to eliminate friction permanently.\n\nClick here to preview the architecture in action.\n\nBest,\nFounder, ${name}`;
+
+      document.getElementById('emailSub2').innerText = `How high-growth ${audience} eliminate acquisition bottlenecks`;
+      document.getElementById('emailDrip2').value = `Hi again,\n\nYesterday we discussed why traditional approaches to ${goal} fall short. Today, let's look at the metrics.\n\nTeams deploying ${offer} report a 3.4x lift in pipeline efficiency.\n\nReady to inspect your numbers?\n\nBest,\nTeam ${name}`;
+
+      document.getElementById('emailSub3').innerText = `Final step: Deploying your autonomous engine`;
+      document.getElementById('emailDrip3').value = `Hi,\n\nThis is our final follow-up regarding ${offer}.\n\nIf you are ready to achieve predictable ${goal} with zero overhead, now is the time to activate your workspace.\n\nBest,\nTeam ${name}`;
+
+      // SEO Radar
+      const seoData = [
+        { kw: `#1 ${audience} system`, vol: '4,400', kd: '28', intent: 'Commercial' },
+        { kw: `${name} architecture review`, vol: '1,800', kd: '14', intent: 'Informational' },
+        { kw: `Best tools for ${goal}`, vol: '8,900', kd: '36', intent: 'Transactional' },
+        { kw: `Automated ${offer}`, vol: '3,200', kd: '22', intent: 'Commercial' }
+      ];
+      document.getElementById('seoTableBody').innerHTML = seoData.map(d => `
+        <tr>
+          <td class="py-2 font-bold text-white">${d.kw}</td>
+          <td class="py-2 text-slate-300">${d.vol}</td>
+          <td class="py-2 text-emerald-400 font-bold">${d.kd}%</td>
+          <td class="py-2 text-indigo-400">${d.intent}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('seoArticleHeading').innerText = `Comprehensive Guide: How ${audience} Can Automate ${goal}`;
+      document.getElementById('seoArticleBody').value = `1. Executive Summary: The Death of Manual Customer Acquisition\n2. Understanding Current Industry Bottlenecks\n3. The ${name} Blueprint: Executing ${offer}\n4. Benchmarking ROI: From High Costs to Scalable Systems\n5. Tactical Implementation Checklist`;
+    }
+
+    function regenerateAllCopy() {
+      populateAllModules();
+      alert('Jasper Studio: All copy variants regenerated!');
+    }
+
+    function copyElementText(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.value || el.innerText);
+      alert('Copied to clipboard!');
+    }
+
+    function exportFunnelHtml() {
+      const { name, goal } = currentBusiness;
+      const htmlContent = `<!DOCTYPE html><html><head><title>${name} - High Speed Funnel</title><script src="https://cdn.tailwindcss.com"><\/script></head><body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-6"><div class="max-w-xl text-center space-y-4"><h1 class="text-4xl font-black">${goal}</h1><p class="text-slate-400">Powered by ${name}</p><input type="email" placeholder="Enter Email" class="p-3 bg-slate-900 border border-slate-700 rounded-lg w-full"><button class="w-full bg-indigo-600 font-bold py-3 rounded-lg">Claim Offer</button></div></body></html>`;
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'funnel-page.html';
+      a.click();
+    }
+
+    function openAddLeadModal() {
+      const email = prompt('Enter New Lead Email:');
+      if (email) {
+        const col = document.getElementById('colLeads');
+        const div = document.createElement('div');
+        div.className = 'p-3 rounded-xl bg-slate-900/80 border border-slate-800 animate-fade-in';
+        div.innerHTML = `<div class="font-bold text-white">${email}</div><div class="text-[10px] text-slate-400 mt-1">Source: Direct Manual Entry</div><div class="mt-2 text-[10px] text-emerald-400 font-mono font-bold">Intent Score: 91 (SQL)</div>`;
+        col.prepend(div);
+      }
+    }
+
+    // Default init
+    populateAllModules();
   </script>
 </body>
 </html>
