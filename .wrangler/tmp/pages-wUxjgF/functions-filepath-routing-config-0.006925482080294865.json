@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/lead-engine",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/lead-engine.js:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
